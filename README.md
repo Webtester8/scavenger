@@ -37,7 +37,11 @@ Verbose or display everything the script is doing and what it gets.
  ```sh
 go run scavenger.go -w all.txt -u example.com -v true
  ```
-
+#### Output(-o)
+Output flag sends all urls found to a file
+```sh
+go run scavenger.go -w all.txt -u example.com -o output.txt
+```
 
 
  *Required to run

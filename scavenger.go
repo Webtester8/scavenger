@@ -127,9 +127,20 @@ func main() {
 		}
 	}
 	wg.Wait()
+	//Print Findings
 	fmt.Println("These URLS were found: ")
 	for _, text := range Found {
 		fmt.Println(text)
+
+		//Send Output to a file(if selected)
+		if Output == true {
+			f, _ := os.OpenFile(*ofile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+			defer f.Close()
+			f.WriteString(text + "\n")
+		}
+	}
+	if Output == true{
+		fmt.Println("All URLS found were saved to " + *ofile)
 	}
 }
 

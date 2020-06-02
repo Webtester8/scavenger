@@ -14,6 +14,7 @@ import (
 var Output bool = false
 var Ht string = "http://"
 var Verbose bool = false
+var Found []string
 
 func main() {
 	//Start wait WaitGroup
@@ -109,29 +110,31 @@ func main() {
 	n = runtime.NumCPU()
 	start := 0
 	end := spacer
-	var found []string
 	fmt.Println("Starting bruteforce...")
 	if Verbose == true {
 		for n != 0 {
-			go vBrute(bru, ur, invalid, start, end, &wg, found)
+			go vBrute(bru, ur, invalid, start, end, &wg)
 			n--
 			start = start + spacer
 			end = end + spacer
 		}
 	} else {
 		for n != 0 {
-			go brute(bru, ur, invalid, start, end, &wg, found)
+			go brute(bru, ur, invalid, start, end, &wg)
 			n--
 			start = start + spacer
 			end = end + spacer
 		}
 	}
 	wg.Wait()
-	fmt.Println(found)
+	fmt.Println("These URLS were found: ")
+	for _, text := range Found {
+		fmt.Println(text)
+	}
 }
 
 //Brute with Verbose
-func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup, found []string) {
+func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for n, text := range bru {
 		if n >= start {
@@ -139,7 +142,7 @@ func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.
 				re, _ := http.Get(ur + text)
 				fmt.Println(ur + text + " => " + re.Status)
 				if re.StatusCode != invalid {
-					found = append(found, ur+text)
+					Found = append(Found, ur+text)
 				}
 			}
 		}
@@ -147,14 +150,14 @@ func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.
 }
 
 //Normal Brute
-func brute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup, found []string) {
+func brute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for n, text := range bru {
 		if n >= start {
 			if n <= stop {
 				re, _ := http.Get(ur + text)
 				if re.StatusCode != invalid {
-					found = append(found, ur+text)
+					Found = append(Found, ur+text)
 				}
 			}
 		}

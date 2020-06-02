@@ -5,7 +5,8 @@ Scavenger is an application used for brute forcing directories very fast with bi
 Unfortunately, it isn't all that easy right now to download and use since it is still under major development.
 
 1. Download the all the files
-2. Make sure you have go installed
+2. Make sure you have Go installed
+3. Unzip Scavenger-master.zip
 
 ## Run
 To run, do the following in your command line.

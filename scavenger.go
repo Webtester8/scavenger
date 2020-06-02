@@ -109,27 +109,29 @@ func main() {
 	n = runtime.NumCPU()
 	start := 0
 	end := spacer
+	var found []string
 	fmt.Println("Starting bruteforce...")
 	if Verbose == true {
 		for n != 0 {
-			go vBrute(bru, ur, invalid, start, end, &wg)
+			go vBrute(bru, ur, invalid, start, end, &wg, found)
 			n--
 			start = start + spacer
 			end = end + spacer
 		}
 	} else {
 		for n != 0 {
-			go brute(bru, ur, invalid, start, end, &wg)
+			go brute(bru, ur, invalid, start, end, &wg, found)
 			n--
 			start = start + spacer
 			end = end + spacer
 		}
 	}
 	wg.Wait()
+	fmt.Println(found)
 }
 
 //Brute with Verbose
-func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup) {
+func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup, found []string) {
 	defer wg.Done()
 	for n, text := range bru {
 		if n >= start {
@@ -137,7 +139,7 @@ func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.
 				re, _ := http.Get(ur + text)
 				fmt.Println(ur + text + " => " + re.Status)
 				if re.StatusCode != invalid {
-					fmt.Println(ur + text)
+					found = append(found, ur+text)
 				}
 			}
 		}
@@ -145,15 +147,14 @@ func vBrute(bru []string, ur string, invalid int, start int, stop int, wg *sync.
 }
 
 //Normal Brute
-func brute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup) {
+func brute(bru []string, ur string, invalid int, start int, stop int, wg *sync.WaitGroup, found []string) {
 	defer wg.Done()
 	for n, text := range bru {
 		if n >= start {
 			if n <= stop {
 				re, _ := http.Get(ur + text)
-				fmt.Println(ur + text + " => " + re.Status)
 				if re.StatusCode != invalid {
-					fmt.Println(ur + text)
+					found = append(found, ur+text)
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 # Scavenger
-Scavenger is an application used for brute forcing directories very fast with big lists to use. It uses the threads in your computer to divy up your Word list then it brute forces.
+Scavenger is an application used for brute forcing directories very fast with big lists to use. It uses the threads in your computer to divy up your Word list then it brute forces.It is *Highly Recommended* that you use your own Word list since the included word list is an example word list used to test the program.
 
 ## Install
 Unfortunately, it isn't all that easy right now to download and use since it is still under major development.

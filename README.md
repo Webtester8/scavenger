@@ -7,6 +7,12 @@ Unfortunately, it isn't all that easy right now to download and use since it is 
 1. Download all the files
 2. Unzip Scavenger-master.zip
 
+#### Linux
+1. Go to the file "Versions"
+2. Under Linux is the Linux binary Version
+3. Move that file to any path that best
+
+
 ## Run
 #### Golang
 To run with Go, do the following in your command line.
@@ -15,9 +21,6 @@ To run with Go, do the following in your command line.
  go run scavenger.go -h
  ```
  #### Linux
- 1. Go to the file "Versions"
- 2. Under Linux is the Linux binary Version
- 3. Move that file to any path that best
  To run do:
   ```sh
   cd $PATH
